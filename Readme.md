@@ -13,3 +13,11 @@ go install github.com/pressly/goose/v3/cmd/goose@latest
 go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest
 
 
+Commands to setup database:
+
+1. cd sql/schema
+2. goose postgres postgres://<username>:<password>@<host>:<port>/assignment up
+3. cd .. / cd..
+4. sqlc generate
+
+After using these commands just build the project and execute the apis
