@@ -7,23 +7,21 @@ package database
 
 import (
 	"context"
-	"database/sql"
 
 	"github.com/google/uuid"
 )
 
 const createUser = `-- name: CreateUser :one
-INSERT INTO users (id, name, email, isReferral, referralUserId) 
-VALUES ($1,$2,$3,$4,$5)
-RETURNING id, name, email, isreferral, referraluserid
+INSERT INTO users (id, name, email, password)
+VALUES ($1, $2, $3, $4)
+RETURNING id, name, email, password
 `
 
 type CreateUserParams struct {
-	ID             uuid.UUID
-	Name           string
-	Email          string
-	Isreferral     sql.NullBool
-	Referraluserid uuid.NullUUID
+	ID       uuid.UUID
+	Name     string
+	Email    string
+	Password string
 }
 
 func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, error) {
@@ -31,22 +29,20 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, e
 		arg.ID,
 		arg.Name,
 		arg.Email,
-		arg.Isreferral,
-		arg.Referraluserid,
+		arg.Password,
 	)
 	var i User
 	err := row.Scan(
 		&i.ID,
 		&i.Name,
 		&i.Email,
-		&i.Isreferral,
-		&i.Referraluserid,
+		&i.Password,
 	)
 	return i, err
 }
 
 const getUserByEmail = `-- name: GetUserByEmail :one
-Select id, name, email, isreferral, referraluserid from users where email = $1
+SELECT id, name, email, password FROM users where email = $1
 `
 
 func (q *Queries) GetUserByEmail(ctx context.Context, email string) (User, error) {
@@ -56,8 +52,7 @@ func (q *Queries) GetUserByEmail(ctx context.Context, email string) (User, error
 		&i.ID,
 		&i.Name,
 		&i.Email,
-		&i.Isreferral,
-		&i.Referraluserid,
+		&i.Password,
 	)
 	return i, err
 }

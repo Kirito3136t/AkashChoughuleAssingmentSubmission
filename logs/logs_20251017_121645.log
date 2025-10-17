@@ -1,0 +1,6 @@
+time="2025-10-17 12:16:45" level=info msg="Logger initialized"
+time="2025-10-17 12:16:45" level=info msg="Starting server on :8000"
+time="2025-10-17 12:16:54" level=error msg="Error fetching user's portfolio:sql: no rows in result set"
+time="2025-10-17 12:17:00" level=info msg="Allocation of the stock successful"
+time="2025-10-17 12:17:07" level=info msg="Allocation of the stock successful"
+time="2025-10-17 12:17:16" level=error msg="Error fetching user's portfolio:sql: no rows in result set"

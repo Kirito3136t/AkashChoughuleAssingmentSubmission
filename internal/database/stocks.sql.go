@@ -7,6 +7,8 @@ package database
 
 import (
 	"context"
+
+	"github.com/google/uuid"
 )
 
 const getAllStocks = `-- name: GetAllStocks :many
@@ -35,4 +37,26 @@ func (q *Queries) GetAllStocks(ctx context.Context) ([]Stock, error) {
 		return nil, err
 	}
 	return items, nil
+}
+
+const getStockById = `-- name: GetStockById :one
+SELECT id, stock_symbol, valuation FROM stocks where ID = $1
+`
+
+func (q *Queries) GetStockById(ctx context.Context, id uuid.UUID) (Stock, error) {
+	row := q.db.QueryRowContext(ctx, getStockById, id)
+	var i Stock
+	err := row.Scan(&i.ID, &i.StockSymbol, &i.Valuation)
+	return i, err
+}
+
+const getStockBySymbol = `-- name: GetStockBySymbol :one
+SELECT id, stock_symbol, valuation FROM stocks where stock_symbol = $1
+`
+
+func (q *Queries) GetStockBySymbol(ctx context.Context, stockSymbol string) (Stock, error) {
+	row := q.db.QueryRowContext(ctx, getStockBySymbol, stockSymbol)
+	var i Stock
+	err := row.Scan(&i.ID, &i.StockSymbol, &i.Valuation)
+	return i, err
 }

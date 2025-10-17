@@ -1,0 +1,4 @@
+time="2025-10-17 12:40:08" level=info msg="Logger initialized"
+time="2025-10-17 12:40:08" level=info msg="Starting server on :8000"
+time="2025-10-17 12:40:21" level=info msg="Allocation of the stock successful"
+time="2025-10-17 12:41:18" level=error msg="Unable to parse the request bodyjson: cannot unmarshal string into Go struct field RequestBodyTransaction.quantity of type float64"

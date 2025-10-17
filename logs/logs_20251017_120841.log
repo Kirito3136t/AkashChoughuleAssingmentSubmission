@@ -1,0 +1,3 @@
+time="2025-10-17 12:08:41" level=info msg="Logger initialized"
+time="2025-10-17 12:08:41" level=info msg="Starting server on :8000"
+time="2025-10-17 12:08:44" level=error msg="Errorstrconv.ParseFloat: parsing \"\": invalid syntax"

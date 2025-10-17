@@ -1,0 +1,3 @@
+time="2025-10-17 13:12:22" level=info msg="Logger initialized"
+time="2025-10-17 13:12:22" level=info msg="Starting server on :8000"
+time="2025-10-17 13:12:36" level=info msg="New User created with ID: 8bc9f249-423e-45e4-a463-1cc240e5d14d"

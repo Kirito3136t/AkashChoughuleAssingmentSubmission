@@ -5,21 +5,39 @@
 package database
 
 import (
-	"database/sql"
+	"time"
 
 	"github.com/google/uuid"
 )
 
+type Portfolio struct {
+	ID            uuid.UUID
+	UserID        uuid.UUID
+	StockID       uuid.UUID
+	TotalQuantity string
+	CreatedAt     time.Time
+	UpdatedAt     time.Time
+}
+
 type Stock struct {
 	ID          uuid.UUID
 	StockSymbol string
-	Valuation   sql.NullString
+	Valuation   string
+}
+
+type StockTransaction struct {
+	ID        uuid.UUID
+	UserID    uuid.UUID
+	StockID   uuid.UUID
+	Type      string
+	Quantity  string
+	Price     string
+	CreatedAt time.Time
 }
 
 type User struct {
-	ID             uuid.UUID
-	Name           string
-	Email          string
-	Isreferral     sql.NullBool
-	Referraluserid uuid.NullUUID
+	ID       uuid.UUID
+	Name     string
+	Email    string
+	Password string
 }
