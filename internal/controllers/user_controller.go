@@ -60,7 +60,7 @@ func (u *UserController) RegisterNewUser(ctx *gin.Context) {
 			return
 		}
 
-		utils.RewardStock(ctx, *u.StockService, *u.TransactionService, *u.PortfolioService, user.ID, "registration")
+		utils.RewardStock(ctx, *u.StockService, *u.TransactionService, *u.PortfolioService, user.ID, "referral")
 	}
 
 	newUser, err := u.UserService.RegisterUser(ctx, req)
@@ -71,6 +71,8 @@ func (u *UserController) RegisterNewUser(ctx *gin.Context) {
 		})
 		return
 	}
+
+	utils.RewardStock(ctx, *u.StockService, *u.TransactionService, *u.PortfolioService, newUser.ID, "registration")
 
 	logger.Log.Infof("Func(RegisterNewUser): New User created with ID: %v", newUser.ID)
 	ctx.JSON(http.StatusAccepted, gin.H{
