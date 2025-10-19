@@ -21,3 +21,7 @@ Commands to setup database:
 4. sqlc generate
 
 After using these commands just build the project and execute the apis
+
+
+Also I have created a logging functionality which will create all the log files in the log folder which is present in the root directory
+
