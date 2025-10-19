@@ -1,5 +1,0 @@
-time="2025-10-17 14:03:58" level=info msg="Logger initialized"
-time="2025-10-17 14:03:58" level=info msg="Starting server on :8000"
-time="2025-10-17 14:04:21" level=info msg="New User created with ID: ce84c78f-b150-4f6f-984c-86f5f1e04933"
-time="2025-10-17 14:04:37" level=info msg="Fetched all the stocks"
-time="2025-10-17 14:05:01" level=info msg="Allocation of the stock successful"

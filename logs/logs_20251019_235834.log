@@ -1,0 +1,4 @@
+time="2025-10-19 23:58:34" level=info msg="Logger initialized"
+time="2025-10-19 23:58:34" level=info msg="Starting server on :8000"
+time="2025-10-19 23:58:37" level=info msg="func(UsersTransactionForToday): Records for userid: 7ce69fe5-99d5-48ef-9d2b-c49eb6778a68 fetched for today"
+time="2025-10-19 23:58:37" level=error msg="func(MapTransactions): Invalid transaction type requested: <nil>"

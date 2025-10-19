@@ -18,29 +18,15 @@ func NewStockService(queries *database.Queries) *StockService {
 
 // fetches all the stocks
 func (s *StockService) GetAllStocks(ctx *gin.Context) ([]database.Stock, error) {
-	stocks, err := s.Queries.GetAllStocks(ctx)
-	if err != nil {
-		return nil, err
-	}
-
-	return stocks, nil
+	return s.Queries.GetAllStocks(ctx)
 }
 
 // fetches stock by id
 func (s *StockService) GetStockById(ctx *gin.Context, id uuid.UUID) (database.Stock, error) {
-	stock, err := s.Queries.GetStockById(ctx, id)
-	if err != nil {
-		return database.Stock{}, err
-	}
-
-	return stock, nil
+	return s.Queries.GetStockById(ctx, id)
 }
 
+// fetches stock by symbol
 func (s *StockService) GetStockBySymbol(ctx *gin.Context, symbol string) (database.Stock, error) {
-	stock, err := s.Queries.GetStockBySymbol(ctx, symbol)
-	if err != nil {
-		return database.Stock{}, err
-	}
-
-	return stock, nil
+	return s.Queries.GetStockBySymbol(ctx, symbol)
 }

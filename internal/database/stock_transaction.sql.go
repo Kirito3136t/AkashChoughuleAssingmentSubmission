@@ -19,21 +19,23 @@ INSERT INTO stock_transactions(
     stock_id,
     type,      
     quantity,           
-    price,   
+    price,
+    transaction_type,   
     created_at 
 )
-VALUES ($1,$2,$3,$4,$5,$6,$7)
-RETURNING id, user_id, stock_id, type, quantity, price, created_at
+VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
+RETURNING id, user_id, stock_id, type, quantity, price, transaction_type, created_at
 `
 
 type CreateStockTransactionParams struct {
-	ID        uuid.UUID
-	UserID    uuid.UUID
-	StockID   uuid.UUID
-	Type      string
-	Quantity  string
-	Price     string
-	CreatedAt time.Time
+	ID              uuid.UUID
+	UserID          uuid.UUID
+	StockID         uuid.UUID
+	Type            string
+	Quantity        string
+	Price           string
+	TransactionType string
+	CreatedAt       time.Time
 }
 
 func (q *Queries) CreateStockTransaction(ctx context.Context, arg CreateStockTransactionParams) (StockTransaction, error) {
@@ -44,6 +46,7 @@ func (q *Queries) CreateStockTransaction(ctx context.Context, arg CreateStockTra
 		arg.Type,
 		arg.Quantity,
 		arg.Price,
+		arg.TransactionType,
 		arg.CreatedAt,
 	)
 	var i StockTransaction
@@ -54,7 +57,50 @@ func (q *Queries) CreateStockTransaction(ctx context.Context, arg CreateStockTra
 		&i.Type,
 		&i.Quantity,
 		&i.Price,
+		&i.TransactionType,
 		&i.CreatedAt,
 	)
 	return i, err
+}
+
+const getTodaysUserStock = `-- name: GetTodaysUserStock :many
+SELECT id, user_id, stock_id, type, quantity, price, transaction_type, created_at FROM stock_transactions
+where user_id = $1 and DATE(created_at) = $2
+`
+
+type GetTodaysUserStockParams struct {
+	UserID    uuid.UUID
+	CreatedAt time.Time
+}
+
+func (q *Queries) GetTodaysUserStock(ctx context.Context, arg GetTodaysUserStockParams) ([]StockTransaction, error) {
+	rows, err := q.db.QueryContext(ctx, getTodaysUserStock, arg.UserID, arg.CreatedAt)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []StockTransaction
+	for rows.Next() {
+		var i StockTransaction
+		if err := rows.Scan(
+			&i.ID,
+			&i.UserID,
+			&i.StockID,
+			&i.Type,
+			&i.Quantity,
+			&i.Price,
+			&i.TransactionType,
+			&i.CreatedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
 }

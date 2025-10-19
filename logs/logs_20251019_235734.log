@@ -1,0 +1,9 @@
+time="2025-10-19 23:57:34" level=info msg="Logger initialized"
+time="2025-10-19 23:57:34" level=info msg="Starting server on :8000"
+time="2025-10-19 23:57:37" level=info msg="[]"
+time="2025-10-19 23:57:37" level=info msg=fddc986e-bc15-4a73-ba46-b6de5e1b917e
+time="2025-10-19 23:57:37" level=info msg="func(UsersTransactionForToday): Records for userid: fddc986e-bc15-4a73-ba46-b6de5e1b917e fetched for today"
+time="2025-10-19 23:58:04" level=info msg="[{de54bcb9-fb84-46c7-b5be-ccfd6c4266dc 7ce69fe5-99d5-48ef-9d2b-c49eb6778a68 f1a01378-c869-439c-b336-93c3258da55c buy 2.321980 7664.2755 reward 2025-10-19 17:58:25.563447 +0000 +0000} {b627ebb6-0e3e-4101-9080-c8508311c983 7ce69fe5-99d5-48ef-9d2b-c49eb6778a68 5e6f48d7-2d54-4c54-8895-0665c4e72ae9 buy 0.532412 1384.5374 transact 2025-10-19 18:10:58.297096 +0000 +0000}]"
+time="2025-10-19 23:58:04" level=info msg=7ce69fe5-99d5-48ef-9d2b-c49eb6778a68
+time="2025-10-19 23:58:04" level=info msg="func(UsersTransactionForToday): Records for userid: 7ce69fe5-99d5-48ef-9d2b-c49eb6778a68 fetched for today"
+time="2025-10-19 23:58:04" level=error msg="func(MapTransactions): Invalid transaction type requested: <nil>"

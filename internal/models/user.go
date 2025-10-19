@@ -1,6 +1,6 @@
 package models
 
-type RegisterUserRequestObject struct {
+type RequestBodyRegisterUser struct {
 	Name              string `json:"name"`
 	Email             string `json:"email"`
 	Password          string `json:"password"`
@@ -8,7 +8,7 @@ type RegisterUserRequestObject struct {
 	ReferralUserEmail string `json:"referral_user_email"`
 }
 
-type LoginUserRequestObject struct {
+type RequestBodyLoginUser struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
 }

@@ -26,18 +26,21 @@ type Stock struct {
 }
 
 type StockTransaction struct {
-	ID        uuid.UUID
-	UserID    uuid.UUID
-	StockID   uuid.UUID
-	Type      string
-	Quantity  string
-	Price     string
-	CreatedAt time.Time
+	ID              uuid.UUID
+	UserID          uuid.UUID
+	StockID         uuid.UUID
+	Type            string
+	Quantity        string
+	Price           string
+	TransactionType string
+	CreatedAt       time.Time
 }
 
 type User struct {
-	ID       uuid.UUID
-	Name     string
-	Email    string
-	Password string
+	ID        uuid.UUID
+	Name      string
+	Email     string
+	Password  string
+	CreatedAt time.Time
+	UpdatedAt time.Time
 }

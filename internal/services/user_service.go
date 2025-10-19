@@ -1,8 +1,12 @@
 package services
 
 import (
+	"time"
+
 	"github.com/Kirito3136t/AkashChoughuleAssingmentSubmission/internal/database"
+	"github.com/Kirito3136t/AkashChoughuleAssingmentSubmission/internal/models"
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 )
 
 type UserService struct {
@@ -15,21 +19,20 @@ func NewUserService(queries *database.Queries) *UserService {
 	}
 }
 
+// fetches user by email
 func (u *UserService) GetUserByMail(ctx *gin.Context, email string) (database.User, error) {
-	user, err := u.Queries.GetUserByEmail(ctx, email)
-	if err != nil {
-		return database.User{}, err
-	}
-
-	return user, nil
+	return u.Queries.GetUserByEmail(ctx, email)
 }
 
-func (u *UserService) RegisterUser(ctx *gin.Context, user database.User) (database.User, error) {
+// registers a new user
+func (u *UserService) RegisterUser(ctx *gin.Context, user *models.RequestBodyRegisterUser) (database.User, error) {
 	params := database.CreateUserParams{
-		ID:       user.ID,
-		Name:     user.Name,
-		Email:    user.Email,
-		Password: user.Password,
+		ID:        uuid.New(),
+		Name:      user.Name,
+		Email:     user.Email,
+		Password:  user.Password,
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
 	}
 
 	return u.Queries.CreateUser(ctx, params)

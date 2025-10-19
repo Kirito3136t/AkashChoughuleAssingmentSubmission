@@ -21,21 +21,18 @@ func NewPortfolioService(queries *database.Queries) *PortfolioService {
 	}
 }
 
-func (p *PortfolioService) FetcUserStock(ctx *gin.Context, user_id uuid.UUID, stock_id uuid.UUID) (database.Portfolio, error) {
+func (p *PortfolioService) FetchUserPortfolioByStockId(ctx *gin.Context, user_id uuid.UUID, stock_id uuid.UUID) (database.Portfolio, error) {
 	params := database.GetUserStockParams{
 		UserID:  user_id,
 		StockID: stock_id,
 	}
 
-	portfolio, err := p.Queries.GetUserStock(ctx, params)
-	if err != nil {
-		return database.Portfolio{}, err
-	}
-
-	return portfolio, nil
+	return p.Queries.GetUserStock(ctx, params)
 }
 
 func (p *PortfolioService) UpdateUserPortfolio(ctx *gin.Context, portfolio *models.RecordPortfolioRequest) (database.Portfolio, error) {
+	logger.Log.Info(portfolio.Type)
+
 	switch portfolio.Type {
 	case "sell":
 		portfolio.Quantity = "-" + portfolio.Quantity
@@ -44,7 +41,6 @@ func (p *PortfolioService) UpdateUserPortfolio(ctx *gin.Context, portfolio *mode
 	default:
 		logger.Log.Error("Invalid portfolio type. Please recheck")
 		return database.Portfolio{}, errors.New("invalid portfolio type")
-
 	}
 
 	params := database.RecordUserPortfolioParams{
@@ -60,10 +56,5 @@ func (p *PortfolioService) UpdateUserPortfolio(ctx *gin.Context, portfolio *mode
 }
 
 func (p *PortfolioService) GetPortfolioByUserId(ctx *gin.Context, userId uuid.UUID) ([]database.Portfolio, error) {
-	portfolio, err := p.Queries.GetPortfolioByUserId(ctx, userId)
-	if err != nil {
-		return []database.Portfolio{}, err
-	}
-
-	return portfolio, nil
+	return p.Queries.GetPortfolioByUserId(ctx, userId)
 }

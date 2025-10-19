@@ -7,13 +7,16 @@ import (
 )
 
 func UserRoutes(r *gin.Engine, userController *controllers.UserController) {
-	userGroup := r.Group("/api/users")
+	userGroup := r.Group("/users")
 	{
 		userGroup.POST("/register", userController.RegisterNewUser)
 		userGroup.POST("/login", userController.LoginUser)
 	}
 	userGroup.Use(middleware.AuthMiddleware())
 	{
-		userGroup.GET("/portfolio", userController.UserPortfolio)
+		userGroup.POST("/transact/:stock_id", userController.UserActionOnStock)
+		userGroup.GET("/today-stocks/:user_id", userController.FetchUsersTransactionForToday)
+		userGroup.GET("/today-rewards/:user_id", userController.FetchUsersRewardForToday)
+		userGroup.GET("/portfolio", userController.FetchUserPortfolio)
 	}
 }

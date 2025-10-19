@@ -5,8 +5,13 @@ INSERT INTO stock_transactions(
     stock_id,
     type,      
     quantity,           
-    price,   
+    price,
+    transaction_type,   
     created_at 
 )
-VALUES ($1,$2,$3,$4,$5,$6,$7)
+VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
 RETURNING *;
+
+-- name: GetTodaysUserStock :many
+SELECT * FROM stock_transactions
+where user_id = $1 and DATE(created_at) = $2;

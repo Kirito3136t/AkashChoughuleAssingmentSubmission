@@ -1,13 +1,9 @@
 package services
 
 import (
-	"fmt"
-	"net/http"
-	"strconv"
 	"time"
 
 	"github.com/Kirito3136t/AkashChoughuleAssingmentSubmission/internal/database"
-	"github.com/Kirito3136t/AkashChoughuleAssingmentSubmission/internal/logger"
 	"github.com/Kirito3136t/AkashChoughuleAssingmentSubmission/internal/models"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -27,58 +23,27 @@ func NewStockTransactionService(queries *database.Queries, portfolioService *Por
 	}
 }
 
-func (s *StockTransactionService) RegisterNewTransaction(ctx *gin.Context, transaction *models.TransactionRequest) (database.StockTransaction, error) {
-	portfolioReq := &models.RecordPortfolioRequest{
-		UserId:   transaction.UserID,
-		StockId:  transaction.StockId,
-		Quantity: transaction.Quantity,
-		Type:     transaction.Type,
-	}
-	if _, err := s.PortfolioService.UpdateUserPortfolio(ctx, portfolioReq); err != nil {
-		logger.Log.Error("Unable to update the users portfolio")
-		return database.StockTransaction{}, err
-	}
-
+// records a trasaction by an user
+func (s *StockTransactionService) RegisterTransaction(ctx *gin.Context, transaction *models.TransactionRequestObject) (database.StockTransaction, error) {
 	params := database.CreateStockTransactionParams{
-		ID:        uuid.New(),
-		StockID:   transaction.StockId,
-		UserID:    transaction.UserID,
-		Quantity:  transaction.Quantity,
-		Price:     transaction.Price,
-		Type:      transaction.Type,
-		CreatedAt: time.Now().UTC(),
+		ID:              uuid.New(),
+		StockID:         transaction.StockId,
+		UserID:          transaction.UserID,
+		Quantity:        transaction.Quantity,
+		Price:           transaction.Price,
+		Type:            transaction.Type,
+		TransactionType: transaction.TransactionType,
+		CreatedAt:       time.Now(),
 	}
 
 	return s.Queries.CreateStockTransaction(ctx, params)
 }
 
-func (s *StockTransactionService) RewardStock(ctx *gin.Context, req *models.RewardRequest) error {
-	stock, err := s.StockService.GetStockBySymbol(ctx, req.StockSymbol)
-	if err != nil {
-		logger.Log.Error("Unable to update the users portfolio")
-		return err
+func (s *StockTransactionService) GetUserTransactionForToday(ctx *gin.Context, user_id uuid.UUID, today_date time.Time) ([]database.StockTransaction, error) {
+	transactionParams := database.GetTodaysUserStockParams{
+		UserID:    user_id,
+		CreatedAt: today_date,
 	}
 
-	quantityFloat, _ := strconv.ParseFloat(req.Quantity, 64)
-	valuationFloat, _ := strconv.ParseFloat(stock.Valuation, 64)
-	amount := quantityFloat * valuationFloat
-
-	transactionObject := models.TransactionRequest{
-		UserID:   req.UserID,
-		StockId:  stock.ID,
-		Quantity: req.Quantity,
-		Type:     "buy",
-		Price:    fmt.Sprintf("%.4f", amount),
-	}
-
-	_, err = s.RegisterNewTransaction(ctx, &transactionObject)
-	if err != nil {
-		logger.Log.Error("Error: ", err)
-		ctx.JSON(http.StatusBadGateway, gin.H{
-			"error": "Unable to register the new transaction",
-		})
-		return err
-	}
-
-	return nil
+	return s.Queries.GetTodaysUserStock(ctx, transactionParams)
 }

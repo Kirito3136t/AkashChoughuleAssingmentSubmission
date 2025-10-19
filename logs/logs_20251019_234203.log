@@ -1,0 +1,4 @@
+time="2025-10-19 23:42:03" level=info msg="Logger initialized"
+time="2025-10-19 23:42:03" level=info msg="Starting server on :8000"
+time="2025-10-19 23:42:08" level=info msg="func(UsersTransactionForToday): Records for userid: fddc986e-bc15-4a73-ba46-b6de5e1b917e fetched for today"
+time="2025-10-19 23:42:13" level=info msg="func(UsersTransactionForToday): Records for userid: fddc986e-bc15-4a73-ba46-b6de5e1b917e fetched for today"

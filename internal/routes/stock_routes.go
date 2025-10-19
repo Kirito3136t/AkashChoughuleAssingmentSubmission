@@ -7,10 +7,9 @@ import (
 )
 
 func StockRoutes(r *gin.Engine, stockController *controllers.StockController) {
-	stockGroup := r.Group("/api/stocks")
+	stockGroup := r.Group("/stocks")
 	stockGroup.Use(middleware.AuthMiddleware())
 	{
 		stockGroup.GET("/", stockController.GetAllStocks)
-		stockGroup.POST("/:stock_id", stockController.UserActionOnStock)
 	}
 }

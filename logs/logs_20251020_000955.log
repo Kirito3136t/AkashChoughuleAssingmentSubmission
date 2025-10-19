@@ -1,0 +1,6 @@
+time="2025-10-20 00:09:55" level=info msg="Logger initialized"
+time="2025-10-20 00:09:55" level=info msg="Starting server on :8000"
+time="2025-10-20 00:10:14" level=info msg="func(UsersTransactionForToday): Records for userid: 7ce69fe5-99d5-48ef-9d2b-c49eb6778a68 fetched for today"
+time="2025-10-20 00:12:16" level=info msg=buy
+time="2025-10-20 00:12:16" level=info msg="func(UserActionOnStock): Allocation of the stock successful"
+time="2025-10-20 00:12:21" level=info msg="func(UsersTransactionForToday): Records for userid: 7ce69fe5-99d5-48ef-9d2b-c49eb6778a68 fetched for today"

@@ -1,7 +1,0 @@
-time="2025-10-17 12:46:06" level=info msg="Logger initialized"
-time="2025-10-17 12:46:06" level=info msg="Starting server on :8000"
-time="2025-10-17 12:46:16" level=info msg="New User created with ID: 5dd675a8-6246-445d-a0d1-de9a958a997d"
-time="2025-10-17 12:46:27" level=info msg="Fetched all the stocks"
-time="2025-10-17 12:46:42" level=info msg="Allocation of the stock successful"
-time="2025-10-17 12:46:48" level=info msg="{c03ea88b-2bbb-4ead-8f21-15cc01fb5033 5dd675a8-6246-445d-a0d1-de9a958a997d 15584441-a830-4918-a1b3-1f9d7ec6198d 100.00000000 2025-10-17 12:46:42.302109 +0000 +0000 2025-10-17 12:46:42.302109 +0000 +0000}"
-time="2025-10-17 12:46:48" level=info msg="Allocation of the stock successful"
